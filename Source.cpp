@@ -18,10 +18,21 @@ BOOL CALLBACK findWWorker(HWND top, LPARAM lparam) {
 				"WorkerW", NULL);
 	}
 
+
+
 	return TRUE;
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+
+int __stdcall WinMain(_In_ HINSTANCE hInstance, 
+					  _In_opt_ HINSTANCE hPrevInstance, 
+					  _In_ LPSTR lpCmdLine, 
+					  _In_ int nCmdShow) {
+
+#ifdef _DEBUG
+	AllocConsole();
+	freopen("CONOUT$", "wb", stdout);
+#endif // _DEBUG
 
 	HWND progman = FindWindow("Progman", NULL);
 
@@ -29,10 +40,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	
 	SendMessageTimeout(progman, 0x052C,
 		0, 0, SMTO_NORMAL,
-		1000, NULL);
+		1000, NULL); 
 
 	EnumWindows(findWWorker, 0);
-
 
 	HDC dc = GetDCEx(workerw, NULL, 0x403);
 
@@ -73,11 +83,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		HPEN pen = CreatePen(PS_SOLID, 2, color);
 		SelectObject(dc, pen);
-		
-		// HBRUSH brush = CreateSolidBrush(color);
-		// SetDCBrushColor(dc, color);
-		// SelectObject(dc, brush);
-
 
 		MoveToEx(dc, x0, y0, NULL);
 		LineTo(dc, x1, y1);
@@ -95,7 +100,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 		Sleep(32);
 
+		DeleteObject(pen);
 	}
+
+	DeleteObject(bg_brush);
+	DeleteObject(bg_pen);
 
 	ReleaseDC(workerw, dc);
 }
