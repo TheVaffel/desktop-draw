@@ -18,4 +18,4 @@ I have only tried to build this with Visual Studio. I have had a few issues with
 
 ## Usage
 
-To use as default background (that is - replace what would normally be your default bacground): Put the executable (or a shortcut to it) in the startup folder, which can be found with `Win`+`R` and then typing `shell:startup`
+To use as default background (that is - replace what would normally be your default background): Put the executable (or a shortcut to it) in the startup folder, which can be found with `Win`+`R` and then typing `shell:startup`
