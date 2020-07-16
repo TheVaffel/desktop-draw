@@ -56,6 +56,8 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance,
 	float th5 = 0.0354f;
 	float th6 = 0.02544f;
 
+	SetProcessDPIAware();
+
 	int screen_width = GetSystemMetrics(SM_CXSCREEN);
 	int screen_height = GetSystemMetrics(SM_CYSCREEN);
 
